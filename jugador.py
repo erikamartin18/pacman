@@ -23,7 +23,7 @@ class Player:
             if self.stored_direction != None:
                 self.direction = self.stored_direction
             self.able_to_move = self.can_move()
-        # Setting grid position in reference to pix pos
+       # Establecer la posición de la cuadrícula en referencia a pix pos
         self.grid_pos[0] = (self.pix_pos[0]-TOP_BOTTOM_BUFFER +
                             self.app.cell_width//2)//self.app.cell_width+1
         self.grid_pos[1] = (self.pix_pos[1]-TOP_BOTTOM_BUFFER +
@@ -35,13 +35,13 @@ class Player:
         pygame.draw.circle(self.app.screen, PLAYER_COLOUR, (int(self.pix_pos.x),
                                                             int(self.pix_pos.y)), self.app.cell_width//2-2)
 
-        # Drawing player lives
+       # Dibujar vidas de jugadores
         for x in range(self.lives):
             pygame.draw.circle(self.app.screen, PLAYER_COLOUR, (30 + 20*x, HEIGHT - 15), 7)
 
-        # Drawing the grid pos rect
+        # Dibujar la cuadrícula pos rect
         # pygame.draw.rect(self.app.screen, RED, (self.grid_pos[0]*self.app.cell_width+TOP_BOTTOM_BUFFER//2,
-        #                                         self.grid_pos[1]*self.app.cell_height+TOP_BOTTOM_BUFFER//2, self.app.cell_width, self.app.cell_height), 1)
+        # self.grid_pos[1]*self.app.cell_height+TOP_BOTTOM_BUFFER//2, self.app.cell_width, self.app.cell_height), 1)
 
     def on_coin(self):
         if self.grid_pos in self.app.coins:
@@ -64,7 +64,6 @@ class Player:
         return vec((self.grid_pos[0]*self.app.cell_width)+TOP_BOTTOM_BUFFER//2+self.app.cell_width//2,
                    (self.grid_pos[1]*self.app.cell_height) +
                    TOP_BOTTOM_BUFFER//2+self.app.cell_height//2)
-
         print(self.grid_pos, self.pix_pos)
 
     def time_to_move(self):

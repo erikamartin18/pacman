@@ -47,7 +47,7 @@ class pacman:
         pygame.quit()
         sys.exit()
 
-############################ HELPER FUNCTIONS ##################################
+#FUNCIONES DE AYUDA
 
     def draw_text(self, words, screen, pos, size, colour, font_name, centered=False):
         font = pygame.font.SysFont(font_name, size)
@@ -62,9 +62,9 @@ class pacman:
         self.background = pygame.image.load('maze.png')
         self.background = pygame.transform.scale(self.background, (MAZE_WIDTH, MAZE_HEIGHT))
 
-        # Opening walls file
-        # Creating walls list with co-ords of walls
-        # stored as  a vector
+       # Abrir archivo de paredes
+        # Creación de una lista de paredes con coordenadas de paredes
+        # almacenado como un vector
         with open("walls.txt", 'r') as file:
             for yidx, line in enumerate(file):
                 for xidx, char in enumerate(line):
@@ -91,9 +91,9 @@ class pacman:
         for x in range(HEIGHT//self.cell_height):
             pygame.draw.line(self.background, GREY, (0, x*self.cell_height),
                              (WIDTH, x*self.cell_height))
-        # for coin in self.coins:
-        #     pygame.draw.rect(self.background, (167, 179, 34), (coin.x*self.cell_width,
-        #                                                        coin.y*self.cell_height, self.cell_width, self.cell_height))
+        # para puntos en self.coins:
+            # pygame.draw.rect(self.background, (167, 179, 34), (coin.x*self.cell_width,
+                  # coin.y*self.cell_height, self.cell_width, self.cell_height))
 
     def reset(self):
         self.player.lives = 3
@@ -115,8 +115,7 @@ class pacman:
         self.state = "playing"
 
 
-########################### INTRO FUNCTIONS ####################################
-
+# FUNCIONES DE INTRODUCCIÓN 
     def start_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -129,7 +128,7 @@ class pacman:
 
     def start_draw(self):
         self.screen.fill(BLACK)
-        self.draw_text('PRECIONE SPACIO', self.screen, [
+        self.draw_text('PRESIONE SPACIO', self.screen, [
                        WIDTH//2, HEIGHT//2-50], START_TEXT_SIZE, (170, 132, 58), START_FONT, centered=True)
         self.draw_text('1 JUGADOR', self.screen, [
                        WIDTH//2, HEIGHT//2+50], START_TEXT_SIZE, (44, 167, 198), START_FONT, centered=True)
@@ -137,7 +136,7 @@ class pacman:
                        START_TEXT_SIZE, (255, 255, 255), START_FONT)
         pygame.display.update()
 
-########################### PLAYING FUNCTIONS ##################################
+# FUNCIONES DE JUEGO 
 
     def playing_events(self):
         for event in pygame.event.get():
@@ -194,7 +193,7 @@ class pacman:
                                (int(coin.x*self.cell_width)+self.cell_width//2+TOP_BOTTOM_BUFFER//2,
                                 int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_BUFFER//2), 5)
 
-########################### GAME OVER FUNCTIONS ################################
+# FUNCIONES DE JUEGO TERMINADO
 
     def game_over_events(self):
         for event in pygame.event.get():
