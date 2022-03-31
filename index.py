@@ -10,7 +10,7 @@ pygame.init()
 vec = pygame.math.Vector2
 
 
-class App:
+class pacman:
     def __init__(self):
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         self.clock = pygame.time.Clock()
@@ -47,7 +47,7 @@ class App:
         pygame.quit()
         sys.exit()
 
-############################ HELPER FUNCTIONS ##################################
+#FUNCIONES DE AYUDA
 
     def draw_text(self, words, screen, pos, size, colour, font_name, centered=False):
         font = pygame.font.SysFont(font_name, size)
@@ -62,9 +62,9 @@ class App:
         self.background = pygame.image.load('maze.png')
         self.background = pygame.transform.scale(self.background, (MAZE_WIDTH, MAZE_HEIGHT))
 
-        # Opening walls file
-        # Creating walls list with co-ords of walls
-        # stored as  a vector
+       # Abrir archivo de paredes
+        # Creación de una lista de paredes con coordenadas de paredes
+        # almacenado como un vector
         with open("walls.txt", 'r') as file:
             for yidx, line in enumerate(file):
                 for xidx, char in enumerate(line):
@@ -91,9 +91,9 @@ class App:
         for x in range(HEIGHT//self.cell_height):
             pygame.draw.line(self.background, GREY, (0, x*self.cell_height),
                              (WIDTH, x*self.cell_height))
-        # for coin in self.coins:
-        #     pygame.draw.rect(self.background, (167, 179, 34), (coin.x*self.cell_width,
-        #                                                        coin.y*self.cell_height, self.cell_width, self.cell_height))
+        # para puntos en self.coins:
+            # pygame.draw.rect(self.background, (167, 179, 34), (coin.x*self.cell_width,
+                  # coin.y*self.cell_height, self.cell_width, self.cell_height))
 
     def reset(self):
         self.player.lives = 3
@@ -115,8 +115,7 @@ class App:
         self.state = "playing"
 
 
-########################### INTRO FUNCTIONS ####################################
-
+# FUNCIONES DE INTRODUCCIÓN 
     def start_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -129,15 +128,15 @@ class App:
 
     def start_draw(self):
         self.screen.fill(BLACK)
-        self.draw_text('Presione Espacio', self.screen, [
+        self.draw_text('PRESIONE SPACIO', self.screen, [
                        WIDTH//2, HEIGHT//2-50], START_TEXT_SIZE, (170, 132, 58), START_FONT, centered=True)
-        self.draw_text('1 Jugador', self.screen, [
+        self.draw_text('1 JUGADOR', self.screen, [
                        WIDTH//2, HEIGHT//2+50], START_TEXT_SIZE, (44, 167, 198), START_FONT, centered=True)
-        self.draw_text('Max Puntos', self.screen, [4, 0],
+        self.draw_text('PUNTUACION MAS ALTA', self.screen, [4, 0],
                        START_TEXT_SIZE, (255, 255, 255), START_FONT)
         pygame.display.update()
 
-########################### PLAYING FUNCTIONS ##################################
+# FUNCIONES DE JUEGO 
 
     def playing_events(self):
         for event in pygame.event.get():
@@ -167,9 +166,9 @@ class App:
         self.screen.blit(self.background, (TOP_BOTTOM_BUFFER//2, TOP_BOTTOM_BUFFER//2))
         self.draw_coins()
         # self.draw_grid()
-        self.draw_text('Puntos Actuales: {}'.format(self.player.current_score),
+        self.draw_text('PUNTUACION: {}'.format(self.player.current_score),
                        self.screen, [60, 0], 18, WHITE, START_FONT)
-        self.draw_text('Max Puntos 0', self.screen, [WIDTH//2+60, 0], 18, WHITE, START_FONT)
+        self.draw_text('PUNTUACION ALTA: 0', self.screen, [WIDTH//2+60, 0], 18, WHITE, START_FONT)
         self.player.draw()
         for enemy in self.enemies:
             enemy.draw()
@@ -194,7 +193,7 @@ class App:
                                (int(coin.x*self.cell_width)+self.cell_width//2+TOP_BOTTOM_BUFFER//2,
                                 int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_BUFFER//2), 5)
 
-########################### GAME OVER FUNCTIONS ################################
+# FUNCIONES DE JUEGO TERMINADO
 
     def game_over_events(self):
         for event in pygame.event.get():
@@ -210,9 +209,9 @@ class App:
 
     def game_over_draw(self):
         self.screen.fill(BLACK)
-        quit_text = "Presione escape para SALIR"
-        again_text = "Espaciadora para JUGAR DE NUEVO"
-        self.draw_text("Perdiste", self.screen, [WIDTH//2, 100],  52, RED, "arial", centered=True)
+        quit_text = "Presione el botón de escape para SALIR"
+        again_text = "Barra espaciadora para JUGAR DE NUEVO"
+        self.draw_text("PERDISTE", self.screen, [WIDTH//2, 100],  52, RED, "arial", centered=True)
         self.draw_text(again_text, self.screen, [
                        WIDTH//2, HEIGHT//2],  36, (190, 190, 190), "arial", centered=True)
         self.draw_text(quit_text, self.screen, [

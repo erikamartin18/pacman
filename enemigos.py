@@ -26,7 +26,7 @@ class Enemy:
             if self.time_to_move():
                 self.move()
 
-        # Setting grid position in reference to pix position
+        # Establecer la posición de la cuadrícula en referencia a la posición de pix
         self.grid_pos[0] = (self.pix_pos[0]-TOP_BOTTOM_BUFFER +
                             self.app.cell_width//2)//self.app.cell_width+1
         self.grid_pos[1] = (self.pix_pos[1]-TOP_BOTTOM_BUFFER +
